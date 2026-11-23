@@ -312,3 +312,5 @@ tr.leadrow .pill.d-new { background: var(--white); border-color: var(--blue); }
 .avw > .avatar { cursor: pointer; }
 .avcard .avatar { width: 36px; height: 36px; flex: none; }
 .avev { display: flex; flex-direction: column; gap: 2px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+
+.roomlabel { margin-bottom: 2px; }

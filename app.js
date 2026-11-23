@@ -294,10 +294,7 @@
   }
   function contact(d) {
     const c = d.contact || { last: "Call, 18 Nov, 6 min", quote: "All good, waiting for the next step.", next: "Check-in call", nextWhen: "Tue 26 Nov", today: false, reach: "WhatsApp", prefs: "English", also: "Also: email, phone" };
-    const o = originOf(d);
-    const ogLine = `<div class="ogline small"><span class="muted">Came via</span><span class="ogw"><button class="link small" data-a="pop" data-v="origin">${o.type === "Client" ? "Directly, " + esc(o.who) : o.type + ", " + esc(o.who)}&nbsp;▾</button>${S.pop === "origin" ? pop(d, "origin") : ""}</span></div>`;
     return `<div class="card pad"><div style="display:flex;justify-content:space-between"><span class="eyebrow blue">Client contact</span><button class="link small" data-a="crm">Open client card</button></div>
-      ${ogLine}
       <div class="small bodyc" style="margin-top:8px">Every call, message and note with this client is kept in the client card, across all deals.</div>
       <div class="tiles"><div class="tile"><span class="eyebrow">Last contact</span><span style="font-weight:500;font-size:14px">${esc(c.last)}</span><span class="small bodyc">“${esc(c.quote)}”</span><div class="row"><button class="link small" data-a="history">Open history&nbsp;&nbsp;→</button></div></div>
       <div class="tile ${c.today ? "hot" : ""}"><div style="display:flex;justify-content:space-between"><span class="eyebrow">Next contact</span>${c.today ? '<span class="tag">TODAY</span>' : ""}</div><span style="font-weight:500;font-size:14px">${esc(c.next)}</span><span class="small bodyc">${esc(c.nextWhen)}</span><div class="row"><button class="btn fill" data-a="reach" data-v="WhatsApp">WhatsApp</button><button class="btn" data-a="reach" data-v="Call">Call</button></div></div>
@@ -326,7 +323,7 @@
     const over = st.ideal && d.day > st.ideal ? `<span class="pill d-late">+${d.day - st.ideal} d over ideal</span>` : "";
     return nav("Deals") + `<div class="page">
       <div class="crumbs"><a href="#/deals">Deals</a>&nbsp;&nbsp;/&nbsp;&nbsp;${esc(d.client)}</div>
-      <div class="roomhead"><div style="flex:1"><div class="titleline"><h1>${esc(d.client)}</h1>${over}<span class="pill mx" title="Status in the team portal">Portal: ${maxStatus(d)}</span></div>
+      <div class="roomhead"><div style="flex:1"><div class="eyebrow blue roomlabel">Deal room</div><div class="titleline"><h1>${esc(d.client)}</h1>${over}<span class="pill mx" title="Status in the team portal">Portal: ${maxStatus(d)}</span></div>
         <div class="ents">${[["property", "Property", d.property.label], ["spv", "Company", spvLabel(d)], ["terms", "Terms", money(d.terms.amount) + " at " + d.terms.rate + "% a year"]].map(([k, l, v]) => `<div class="ent"><div class="eyebrow">${l}</div>${v ? `<button data-a="pop" data-v="${k}">${esc(v)}</button>` : '<div class="muted" style="margin-top:3px;font-size:13px">Not set up yet</div>'}${S.pop === k ? pop(d, k) : ""}</div>`).join("")}</div></div>
         ${avatars(d)}
         <div class="rel"><button class="btn" data-a="exportOpen">↓&nbsp;&nbsp;Export&nbsp;&nbsp;▾</button>${S.exportOpen ? exportMenu("deal") : ""}</div>
