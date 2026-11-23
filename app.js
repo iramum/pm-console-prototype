@@ -1,4 +1,4 @@
-// Manager Workspace — interactive prototype. Vanilla JS, no build step.
+// Workspace — interactive prototype. Vanilla JS, no build step.
 (function () {
   const $app = document.getElementById("app");
   const clone = (o) => JSON.parse(JSON.stringify(o));
@@ -90,7 +90,7 @@
       ? `<span class="sitem off" aria-disabled="true" title="Not part of this prototype"><span class="stx">${t}${sub("Not in this case")}</span>${nb(n[t])}</span>`
       : `<a class="sitem ${on ? "on" : ""}" href="${href}"><span class="stx">${t}${sub(s2)}</span>${nb(n[t])}</a>`;
     const rec = S.recent.map(byId).filter((d) => d && !d.closed).slice(0, 3);
-    return `<aside class="side"><div class="brand">Manager Workspace</div><nav class="snav" aria-label="Sections">
+    return `<aside class="side"><div class="brand">Workspace</div><nav class="snav" aria-label="Sections">
       <a class="sitem ${active === "Home" ? "on" : ""}" href="#/home"><span class="stx">Home<span class="ssub">Your day and your board</span></span></a>
       ${item("Leads")}
       ${item("Deal portfolio", "#/deals", active === "Deal portfolio" && !cur, "All deals in work")}
