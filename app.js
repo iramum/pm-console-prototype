@@ -54,13 +54,13 @@
   // ---------- shell
   function nav(active) {
     return `<div class="nav"><div class="brand">Project Management Console</div>
-      ${navTabs().map(([t, n]) => !OFF_TABS.includes(t) ? `<a class="tab ${active === t ? "on" : ""}" href="#/${t.toLowerCase()}">${t}${n ? `<span class="nb">${n}</span>` : ""}</a>` : `<span class="tab off" aria-disabled="true" title="Not part of this prototype">${t}</span>`).join("")}
+      ${navTabs().map(([t, n]) => !OFF_TABS.includes(t) ? `<a class="tab ${active === t ? "on" : ""}" href="#/${t === "Deal portfolio" ? "deals" : t.toLowerCase()}">${t}${n ? `<span class="nb">${n}</span>` : ""}</a>` : `<span class="tab off" aria-disabled="true" title="Not part of this prototype">${t}</span>`).join("")}
       <div class="me">Anna K., Deal manager <span class="avatar">AK</span></div></div>`;
   }
   const OFF_TABS = ["Leads", "Payments"];
   function navTabs() {
     const ds = inScale();
-    return [["Leads", window.LEADS.filter((l) => l.today).length], ["Deals", ds.filter(isToday).length], ["Payments", ds.filter((d) => d.stage === 8 && mainAct(d).chip[0] === "late").length], ["Documents", ds.filter((d) => d.actions.some((a) => !a.done && (a.panel === "check" || /^Check/.test(a.title)))).length]];
+    return [["Leads", window.LEADS.filter((l) => l.today).length], ["Deal portfolio", ds.filter(isToday).length], ["Payments", ds.filter((d) => d.stage === 8 && mainAct(d).chip[0] === "late").length], ["Documents", ds.filter((d) => d.actions.some((a) => !a.done && (a.panel === "check" || /^Check/.test(a.title)))).length]];
   }
   const VARIANTS = [["A", "Block"], ["B", "Strip"], ["C", "Ready leads in the list"], ["D", "Nothing"]];
   function demo() { return route().p === "deals" && new URLSearchParams(location.search).has("test") ? `<div class="demo"><span>Test: leads on Deals</span>${VARIANTS.map(([k, t]) => `<button class="${S.variant === k ? "on" : ""}" data-a="variant" data-v="${k}">${k}&nbsp;&nbsp;${t}</button>`).join("")}</div>` : ""; }
@@ -160,8 +160,8 @@
     const blocks = { A: null, B: strip, C: "", D: "" };
     const leads0 = `<div class="card crm"><div class="top"><span class="eyebrow blue">Leads</span><span class="pill d-today">${hot.length} of ${window.LEADS.length} leads need you today</span><span class="small muted">A lead becomes a deal when Screening is passed.</span><span style="flex:1"></span><button class="link" data-a="offtab" data-v="Leads">Open Leads&nbsp;&nbsp;→</button></div><div class="leads three">${hot.map(leadCard).join("")}</div></div>`;
     const leads = blocks[S.variant] === null || blocks[S.variant] === undefined ? leads0 : blocks[S.variant];
-    return nav("Deals") + `<div class="page">
-      <div class="head"><h1>Deals</h1><div class="grow"></div>
+    return nav("Deal portfolio") + `<div class="page">
+      <div class="head"><h1>Deal portfolio</h1><div class="grow"></div>
         <div class="search"><input id="q" placeholder="Search by client, property or SPV" value="${esc(S.q)}" autocomplete="off">${S.q ? '<button class="link" data-a="clearQ" style="position:absolute;right:10px;top:9px;color:var(--muted)">×</button>' : ""}${S.searchOpen ? searchResults() : ""}</div>
         <div class="rel"><button class="btn" data-a="exportOpen">↓&nbsp;&nbsp;Export&nbsp;&nbsp;▾</button>${S.exportOpen ? exportMenu("list") : ""}</div></div>
       ${S.exportOpen || S.sortOpen || S.filtOpen || (S.searchOpen && S.q) ? '<div class="dim soft" data-a="closeAll"></div>' : ""}
@@ -265,7 +265,7 @@
       if (s.n === 1 && d.stage === 1) h += `<div class="s01">${S01.map((x, i) => `<div class="${i < step01(d) ? "done" : i === step01(d) ? "cur" : ""}"><span class="sq"></span><span class="nm2">${x[0]}${x[1] ? `<span class="mxs">Portal: ${x[1]}</span>` : ""}</span></div>`).join("")}${step01(d) === 2 ? '<div class="small bodyc" style="margin:6px 0 2px 24px">You collect the AML documents: PEP, sanctions. The CEO decides the risk.</div>' : ""}</div>`;
     });
     if (inRun) h += "</div>";
-    return h + "</div>";
+    return h + '<p class="small muted" style="margin-top:12px">06 to 09 are outside this case: purchase, payments and exit bring the financial side of the deal, not designed here.</p></div>';
   }
   const teamOf = (d) => d.team || [["AK", "Anna K., manager, you", "Opened the deal"], ["CEO", "CEO and CFO, economics", d.stage === 1 && step01(d) < 2 ? "Sign the economics" : "Signed the economics"]];
   const roleOf = (p) => { const r = p[1].split(",").slice(1).join(",").trim(); return r.charAt(0).toUpperCase() + r.slice(1); };
@@ -321,8 +321,8 @@
   function room(d) {
     const st = window.STAGES[d.stage - 1];
     const over = st.ideal && d.day > st.ideal ? `<span class="pill d-late">+${d.day - st.ideal} d over ideal</span>` : "";
-    return nav("Deals") + `<div class="page">
-      <div class="crumbs"><a href="#/deals">Deals</a>&nbsp;&nbsp;/&nbsp;&nbsp;${esc(d.client)}</div>
+    return nav("Deal portfolio") + `<div class="page">
+      <div class="crumbs"><a href="#/deals">Deal portfolio</a>&nbsp;&nbsp;/&nbsp;&nbsp;${esc(d.client)}</div>
       <div class="roomhead"><div style="flex:1"><div class="eyebrow blue roomlabel">Deal room</div><div class="titleline"><h1>${esc(d.client)}</h1>${over}<span class="pill mx" title="Status in the team portal">Portal: ${maxStatus(d)}</span></div>
         <div class="ents">${[["property", "Property", d.property.label], ["spv", "Company", spvLabel(d)], ["terms", "Terms", money(d.terms.amount) + " at " + d.terms.rate + "% a year"]].map(([k, l, v]) => `<div class="ent"><div class="eyebrow">${l}</div>${v ? `<button data-a="pop" data-v="${k}">${esc(v)}</button>` : '<div class="muted" style="margin-top:3px;font-size:13px">Not set up yet</div>'}${S.pop === k ? pop(d, k) : ""}</div>`).join("")}</div></div>
         ${avatars(d)}
