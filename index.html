@@ -13,18 +13,14 @@
 </head>
 <body class="airy">
   <div id="app"></div>
-  <div class="skin" role="group" aria-label="Skin">
-    <button type="button" data-skin="v3">v3</button>
-    <button type="button" data-skin="airy" class="on">Airy cobalt</button>
-  </div>
   <script>
     (function () {
       var saved = 'airy';
-      try { saved = localStorage.getItem('skin') || 'airy'; } catch (e) {}
+      
       function set(s) {
         document.body.classList.toggle('airy', s === 'airy');
         document.querySelectorAll('.skin button').forEach(function (b) { b.classList.toggle('on', b.dataset.skin === s); });
-        try { localStorage.setItem('skin', s); } catch (e) {}
+        
       }
       set(saved);
       if (new URLSearchParams(location.search).get('skin') === 'lofi') { document.body.classList.remove('airy'); document.body.classList.add('lofi'); }
@@ -36,7 +32,6 @@
         
       }
       setW(wv);
-      document.querySelector('.skin').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; if (b.dataset.wave) setW(b.dataset.wave); else set(b.dataset.skin); });
     })();
   </script>
   <script src="data.js"></script>
