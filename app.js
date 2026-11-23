@@ -107,7 +107,6 @@
   const FGROUPS = [
     ["stage", "Stage", window.STAGES.map((x) => [String(x.n), two(x.n) + " " + x.name])],
     ["due", "Deadline", [["late", "Late"], ["today", "Due today"], ["week", "Within 7 days"]]],
-    ["src", "Origin", [["Client", "Client"], ["Broker", "Broker"], ["Partner", "Partner"]]],
     ["type", "Client type", [["Individual", "Individual"], ["Company", "Company"]]],
     ["phase", "Phase", [["setup", "Before funding, 01 to 07"], ["pay", "Payments, 08"], ["exit", "Exit, 09"]]],
   ];
@@ -157,7 +156,7 @@
     const hot = window.LEADS.filter((l) => l.today);
     const ready = window.LEADS.filter((l) => l.start);
     const strip = `<div class="card crmline"><span class="eyebrow blue">Leads</span><span class="pill d-today">${hot.length} need you today</span><span class="small bodyc">${hot.map((l) => `<b>${esc(l.client)}</b> ${esc(l.line.charAt(0).toLowerCase() + l.line.slice(1))}`).join(";&nbsp; ")}</span><span style="flex:1"></span>${ready.map((l) => `<button class="btn fill" data-a="startDeal" data-v="${esc(l.client)}">Start ${esc(l.client)}&nbsp;&nbsp;→</button>`).join("")}<button class="link" data-a="offtab" data-v="Leads">Open Leads&nbsp;&nbsp;→</button></div>`;
-    const leadRows = S.variant === "C" && ["all", "today", "you"].includes(S.filter) ? ready.map((l) => `<tr class="leadrow"><td><div class="cname">${esc(l.client)} <span class="pill og ${l.og || "Client"}">${l.og || "Client"}</span> <span class="pill d-new">Lead</span></div><div class="small muted">${esc(l.prop)}</div></td><td><div style="font-weight:500">${money(l.amount || 0)}</div><div class="small muted">asked</div></td><td><div class="small bodyc">Screening passed</div></td><td>${whosePill("you")}</td><td style="font-weight:500">Start the deal</td><td><span class="pill d-new">Ready today</span></td><td style="text-align:right"><button class="btn fill" data-a="startDeal" data-v="${esc(l.client)}">Start&nbsp;&nbsp;→</button></td></tr>`).join("") : "";
+    const leadRows = S.variant === "C" && ["all", "today", "you"].includes(S.filter) ? ready.map((l) => `<tr class="leadrow"><td><div class="cname">${esc(l.client)} <span class="pill d-new">Lead</span></div><div class="small muted">${esc(l.prop)}</div></td><td><div style="font-weight:500">${money(l.amount || 0)}</div><div class="small muted">asked</div></td><td><div class="small bodyc">Screening passed</div></td><td>${whosePill("you")}</td><td style="font-weight:500">Start the deal</td><td><span class="pill d-new">Ready today</span></td><td style="text-align:right"><button class="btn fill" data-a="startDeal" data-v="${esc(l.client)}">Start&nbsp;&nbsp;→</button></td></tr>`).join("") : "";
     const blocks = { A: null, B: strip, C: "", D: "" };
     const leads0 = `<div class="card crm"><div class="top"><span class="eyebrow blue">Leads</span><span class="pill d-today">${hot.length} of ${window.LEADS.length} leads need you today</span><span class="small muted">A lead becomes a deal when Screening is passed.</span><span style="flex:1"></span><button class="link" data-a="offtab" data-v="Leads">Open Leads&nbsp;&nbsp;→</button></div><div class="leads three">${hot.map(leadCard).join("")}</div></div>`;
     const leads = blocks[S.variant] === null || blocks[S.variant] === undefined ? leads0 : blocks[S.variant];
@@ -170,7 +169,7 @@
       ${S.filter === "today" ? '<p class="hint">Shown when the deadline has passed or is today, the client has not replied for 48 hours, or something new needs your check.</p>' : ""}
       ${leads}
       <div class="card tablecard"><table class="deals"><thead><tr><th style="width:20%">Client and property</th><th style="width:11%">Amount</th><th style="width:17%">Stage</th><th style="width:12%">Whose move</th><th>Next action</th><th style="width:14%">Deadline</th><th style="width:90px"></th></tr></thead><tbody>
-      ${leadRows}${shown.map((d) => { const a = mainAct(d); return `<tr data-a="open" data-id="${d.id}"><td><div class="cname">${esc(d.client)} ${ogPill(d)}${d.fresh ? ' <span class="pill d-new">New from Leads</span>' : ""}</div><div class="small muted">${esc(d.property.label)}</div></td><td><div style="font-weight:500">${money(d.terms.amount)}</div><div class="small muted">${asked(d) !== d.terms.amount ? "of " + money(asked(d)) + " asked" : "as asked"}, ${d.terms.rate}%</div></td><td>${dots(d)}<div class="small bodyc">${esc(stageText(d))}</div></td><td>${whosePill(a.whose)}</td><td style="font-weight:500">${esc(a.title)}</td><td>${dlChip(a.chip)}</td><td style="text-align:right"><button class="btn" data-a="open" data-id="${d.id}">Open&nbsp;&nbsp;→</button></td></tr>`; }).join("")}
+      ${leadRows}${shown.map((d) => { const a = mainAct(d); return `<tr data-a="open" data-id="${d.id}"><td><div class="cname">${esc(d.client)}${d.fresh ? ' <span class="pill d-new">New from Leads</span>' : ""}</div><div class="small muted">${esc(d.property.label)}</div></td><td><div style="font-weight:500">${money(d.terms.amount)}</div><div class="small muted">${asked(d) !== d.terms.amount ? "of " + money(asked(d)) + " asked" : "as asked"}, ${d.terms.rate}%</div></td><td>${dots(d)}<div class="small bodyc">${esc(stageText(d))}</div></td><td>${whosePill(a.whose)}</td><td style="font-weight:500">${esc(a.title)}</td><td>${dlChip(a.chip)}</td><td style="text-align:right"><button class="btn" data-a="open" data-id="${d.id}">Open&nbsp;&nbsp;→</button></td></tr>`; }).join("")}
       </tbody></table>${!shown.length ? '<div class="empty">Nothing here. Every deal in this view is on time.</div>' : ""}
       ${big && list.length > shown.length ? `<div class="tfoot"><span>${shown.length} of ${list.length} shown, most urgent first.</span><button class="btn" data-a="more">Show 10 more&nbsp;&nbsp;↓</button></div>` : ""}</div>
     </div>`;
@@ -268,9 +267,19 @@
     if (inRun) h += "</div>";
     return h + "</div>";
   }
+  const teamOf = (d) => d.team || [["AK", "Anna K., manager, you", "Opened the deal"], ["CEO", "CEO and CFO, economics", d.stage === 1 && step01(d) < 2 ? "Sign the economics" : "Signed the economics"]];
+  const roleOf = (p) => { const r = p[1].split(",").slice(1).join(",").trim(); return r.charAt(0).toUpperCase() + r.slice(1); };
+  const actorOf = (p) => p[0] === "AK" ? "You" : p[0] === "CEO" ? "CEO" : p[1].split(",")[0];
+  function personLog(d, p) {
+    const own = (d.activity || []).filter((e) => e[0] === actorOf(p)).map((e) => [e[1], e[2]]);
+    return own.length ? own : [[p[2].replace(/, \d\d \w+$/, ""), (p[2].match(/\d\d \w+$/) || ["This week"])[0]]];
+  }
   function avatars(d) {
-    const t = d.team || [["AK", "Anna K., manager, you", "Opened the deal"], ["CEO", "CEO and CFO, economics", d.stage === 1 && step01(d) < 2 ? "Sign the economics" : "Signed the economics"]];
-    return `<div class="avs" title="Who works on this deal">${t.map((p) => `<span class="avatar" title="${esc(p[1])}: ${esc(p[2])}">${esc(p[0])}</span>`).join("")}<button class="avatar add" data-a="addPerson" title="Add a person">+</button></div>`;
+    const t = teamOf(d);
+    return `<div class="avs">${t.map((p, i) => { const log = personLog(d, p); const nm = p[1].split(",")[0], role = roleOf(p);
+      return `<div class="avw ${S.avOpen === i ? "open" : ""}"><button class="avatar" data-a="avOpen" data-v="${i}">${esc(p[0])}</button><div class="avcard card"><div style="display:flex;gap:10px;align-items:center"><span class="avatar">${esc(p[0])}</span><div><div style="font-weight:500">${esc(nm)}</div><div class="small muted">${esc(role)}</div></div></div>
+        <div class="eyebrow" style="margin-top:14px">Last on this deal</div>${log.slice(0, 3).map((e) => `<div class="avev"><span>${esc(e[0])}</span><span class="small muted">${esc(e[1])}</span></div>`).join("")}
+        <button class="link small" style="margin-top:10px" data-a="personLog" data-v="${i}">All actions on this deal&nbsp;&nbsp;→</button></div></div>`; }).join("")}<button class="avatar add" data-a="addPerson" title="Add a person">+</button></div>`;
   }
   function team(d) {
     const t = d.team || [["AK", "Anna K., manager, you", "Opened the deal"], ["CEO", "CEO and CFO, economics", d.stage === 1 && step01(d) < 2 ? "Sign the economics" : "Signed the economics"]];
@@ -285,7 +294,10 @@
   }
   function contact(d) {
     const c = d.contact || { last: "Call, 18 Nov, 6 min", quote: "All good, waiting for the next step.", next: "Check-in call", nextWhen: "Tue 26 Nov", today: false, reach: "WhatsApp", prefs: "English", also: "Also: email, phone" };
+    const o = originOf(d);
+    const ogLine = `<div class="ogline small"><span class="muted">Came via</span><span class="ogw"><button class="link small" data-a="pop" data-v="origin">${o.type === "Client" ? "Directly, " + esc(o.who) : o.type + ", " + esc(o.who)}&nbsp;▾</button>${S.pop === "origin" ? pop(d, "origin") : ""}</span></div>`;
     return `<div class="card pad"><div style="display:flex;justify-content:space-between"><span class="eyebrow blue">Client contact</span><button class="link small" data-a="crm">Open client card</button></div>
+      ${ogLine}
       <div class="small bodyc" style="margin-top:8px">Every call, message and note with this client is kept in the client card, across all deals.</div>
       <div class="tiles"><div class="tile"><span class="eyebrow">Last contact</span><span style="font-weight:500;font-size:14px">${esc(c.last)}</span><span class="small bodyc">“${esc(c.quote)}”</span><div class="row"><button class="link small" data-a="history">Open history&nbsp;&nbsp;→</button></div></div>
       <div class="tile ${c.today ? "hot" : ""}"><div style="display:flex;justify-content:space-between"><span class="eyebrow">Next contact</span>${c.today ? '<span class="tag">TODAY</span>' : ""}</div><span style="font-weight:500;font-size:14px">${esc(c.next)}</span><span class="small bodyc">${esc(c.nextWhen)}</span><div class="row"><button class="btn fill" data-a="reach" data-v="WhatsApp">WhatsApp</button><button class="btn" data-a="reach" data-v="Call">Call</button></div></div>
@@ -314,12 +326,12 @@
     const over = st.ideal && d.day > st.ideal ? `<span class="pill d-late">+${d.day - st.ideal} d over ideal</span>` : "";
     return nav("Deals") + `<div class="page">
       <div class="crumbs"><a href="#/deals">Deals</a>&nbsp;&nbsp;/&nbsp;&nbsp;${esc(d.client)}</div>
-      <div class="roomhead"><div style="flex:1"><div class="titleline"><h1>${esc(d.client)}</h1><span class="ogw">${ogPill(d, true)}${S.pop === "origin" ? pop(d, "origin") : ""}</span>${over}<span class="pill mx" title="Status in the team portal">Portal: ${maxStatus(d)}</span></div>
+      <div class="roomhead"><div style="flex:1"><div class="titleline"><h1>${esc(d.client)}</h1>${over}<span class="pill mx" title="Status in the team portal">Portal: ${maxStatus(d)}</span></div>
         <div class="ents">${[["property", "Property", d.property.label], ["spv", "Company", spvLabel(d)], ["terms", "Terms", money(d.terms.amount) + " at " + d.terms.rate + "% a year"]].map(([k, l, v]) => `<div class="ent"><div class="eyebrow">${l}</div>${v ? `<button data-a="pop" data-v="${k}">${esc(v)}</button>` : '<div class="muted" style="margin-top:3px;font-size:13px">Not set up yet</div>'}${S.pop === k ? pop(d, k) : ""}</div>`).join("")}</div></div>
         ${avatars(d)}
         <div class="rel"><button class="btn" data-a="exportOpen">↓&nbsp;&nbsp;Export&nbsp;&nbsp;▾</button>${S.exportOpen ? exportMenu("deal") : ""}</div>
         <button class="btn" data-a="crm">Client card</button><button class="btn" data-a="handover">⇄&nbsp;&nbsp;Hand over</button><button class="btn" data-a="closeDeal">Close the deal</button></div>
-      ${S.pop || S.exportOpen ? '<div class="dim soft" data-a="closeAll"></div>' : ""}
+      ${(S.pop && S.pop !== "origin") || S.exportOpen ? '<div class="dim soft" data-a="closeAll"></div>' : ""}
       ${topbar(d)}
       <div class="grid3"><div class="col">${stages(d)}</div><div class="col">${actionsCard(d)}${contact(d)}</div><div class="col">${documents(d)}${activity(d)}</div></div>
     </div>` + overlay(d);
@@ -395,6 +407,11 @@
         <div class="sec"><div class="eyebrow">Goes with it</div><div class="kv" style="margin-top:10px"><span class="k">Amount</span><span>${num(d.terms.amount)}</span><span class="k">Needed by</span><span>${esc(d.terms.neededBy || "Not set")}</span><span class="k">SPV account</span><span>${esc(spvLabel(d) || "SPV")}, ${esc(d.spv.bank === "Open" ? "account open" : "account not open yet")}</span></div></div>
         <div class="sec"><button class="btn fill big" data-a="sendFund">Hand over to funding&nbsp;&nbsp;→</button></div>
         <p class="small muted">The deal shows «With CEO and CFO» until the capital is in the SPV account. The forecast waits for it.</p>`;
+    }
+    if (k === "person") {
+      const p = teamOf(d)[S.drawer.i] || teamOf(d)[0]; const log = personLog(d, p);
+      return `<span class="eyebrow">Who works on this deal</span><h2>${esc(p[1].split(",")[0])}</h2><div class="bodyc">${esc(roleOf(p))}. Everything this person did on ${esc(d.client)}, newest first.</div>
+        <div class="feed sec">${log.map((e) => `<div class="msg"><div class="small muted">${esc(e[1])}</div><div style="margin-top:4px">${esc(e[0])}</div></div>`).join("")}</div>`;
     }
     if (k === "history") {
       const hist = d.history || [["18 Nov", "Call", "You", "Check-in, nothing new."]];
@@ -526,7 +543,7 @@
     $app.innerHTML = html + demo() + toast();
     if (focus) { const q = document.getElementById("q"); q.focus(); q.setSelectionRange(pos, pos); }
   }
-  window.addEventListener("hashchange", () => { Object.assign(S, { pop: null, drawer: null, dialog: null, exportOpen: false, searchOpen: false, fileChoice: null, files: {}, docTab: null }); render(); window.scrollTo(0, 0); });
+  window.addEventListener("hashchange", () => { Object.assign(S, { avOpen: null, pop: null, drawer: null, dialog: null, exportOpen: false, searchOpen: false, fileChoice: null, files: {}, docTab: null }); render(); window.scrollTo(0, 0); });
 
   function curDeal() { const r = route(); return r.p === "deal" ? byId(r.id) : null; }
   function download(name, text, type) { const b = new Blob([text], { type: type || "text/csv" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = name; a.click(); }
@@ -660,6 +677,8 @@
       }
       case "sendForm": { const act = d.actions.find((x) => x.id === S.drawer.id); act.done = true; act.doneWhen = "22 Nov"; act.sub = "Sent today"; d.activity = [["You", act.title, "22 Nov"]].concat(d.activity || []); S.drawer = null; say("Sent. The task moves to the other side."); return; }
       case "history": S.drawer = { kind: "history" }; break;
+      case "personLog": S.drawer = { kind: "person", i: +v }; S.avOpen = null; break;
+      case "avOpen": S.avOpen = S.avOpen === +v ? null : +v; break;
       case "sendFund": { const act = d.actions.find((x) => x.id === S.drawer.id); act.whose = "ceo"; act.title = "Funding: the CEO allocates capital"; act.sub = "Handed over today. Capital goes to the SPV account"; act.chip = ["left", "expected in 3 days"]; act.btn = "View"; act.panel = "ceo"; d.activity = [["You", "Handed over to funding", "22 Nov"]].concat(d.activity || []); if (d.forecast) d.forecast.holds = "Funding: the CEO allocates capital"; S.drawer = null; say("Handed over. The CEO allocates the capital in his console."); return; }
       case "histFilter": S.histFilter = v; break;
       case "sendMsg": { const ta = document.querySelector(".drawer textarea"); const t = ta && ta.value.trim(); if (!t) { say("Write something first"); return; } d.history = [["22 Nov", v === "team" ? "Team note" : S.channel, "You", t]].concat(d.history || []); break; }
@@ -675,7 +694,7 @@
       case "docFilter": S.docFilter = v; break;
       case "docCheck": location.hash = "#/deal/" + id; setTimeout(() => { S.drawer = { kind: "check", id: "a2" }; render(); }, 30); return;
       case "docRemind": { const x = byId(id); location.hash = "#/deal/" + id; setTimeout(() => { S.drawer = { kind: x.actions[0].panel === "remind" ? "remind" : "form", id: x.actions[0].id }; render(); }, 30); return; }
-      case "closeAll": S.drawer = null; S.dialog = null; S.fileChoice = null; S.pop = null; S.exportOpen = false; S.searchOpen = false; S.sortOpen = false; S.filtOpen = false; break;
+      case "closeAll": S.avOpen = null; S.drawer = null; S.dialog = null; S.fileChoice = null; S.pop = null; S.exportOpen = false; S.searchOpen = false; S.sortOpen = false; S.filtOpen = false; break;
       case "sortOpen": S.sortOpen = !S.sortOpen; S.filtOpen = false; S.exportOpen = false; break;
       case "sort": S.sort = v; S.sortOpen = false; break;
       case "filtOpen": S.filtOpen = !S.filtOpen; S.sortOpen = false; S.exportOpen = false; break;

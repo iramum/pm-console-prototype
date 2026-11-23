@@ -43,7 +43,7 @@ window.BASE_DEALS = [
     },
     contact: { last: "Call, 19 Nov, 12 min", quote: "Will ask HR for the letter, expects it by Friday.", next: "Follow-up call", nextWhen: "Fri 22 Nov, after 17:00", today: true, reach: "WhatsApp, after 17:00", prefs: "English, portal last in 18 Nov", also: "Also: email, phone" },
     team: [["AK", "Anna K., manager, you", "Call with the client, 19 Nov"], ["MS", "Mira S., documents", "Checked the KYC pack, 18 Nov"], ["CEO", "CEO and CFO, economics", "Signed the economics, 06 Nov"]],
-    activity: [["Client", "Uploaded 5 files", "18 Nov, 1 needs your check"], ["CSP", "Started the wealth review", "18 Nov, nothing needed from you"], ["CSP", "Asked for the employment letter", "14 Nov, now in Next actions"], ["You", "Sent the KYC pack to the CSP", "06 Nov"], ["CEO", "CEO and CFO signed the economics", "06 Nov"], ["Client", "Signed the Service Agreement", "01 Nov"]],
+    activity: [["Client", "Uploaded 5 files", "18 Nov, 1 needs your check"], ["CSP", "Started the wealth review", "18 Nov, nothing needed from you"], ["Mira S.", "Checked the KYC pack", "18 Nov, 4 files fine, 1 sent back"], ["Mira S.", "Sent the KYC pack to the CSP", "06 Nov"], ["CSP", "Asked for the employment letter", "14 Nov, now in Next actions"], ["You", "Called the client about the employment letter", "15 Nov"], ["CEO", "CEO and CFO signed the economics", "06 Nov"], ["Client", "Signed the Service Agreement", "01 Nov"]],
     history: [
       ["19 Nov", "Call, 12 min", "You", "Client will ask HR for the employment letter, expects it by Friday."],
       ["18 Nov", "Portal", "Client", "Uploaded 5 files as Title Deed. «I uploaded all documents.»"],

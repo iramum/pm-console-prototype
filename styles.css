@@ -300,3 +300,15 @@ tr.leadrow .pill.d-new { background: var(--white); border-color: var(--blue); }
 .avs .avatar:first-child { margin-left: 0; }
 
 .nav .tab.off { font-size: 14px; height: 64px; display: flex; align-items: center; color: #BBBBBB; cursor: default; user-select: none; border-bottom: 3px solid transparent; }
+
+.ogline { display: flex; gap: 8px; align-items: baseline; margin-top: 8px; }
+.ogline .ogw .pop { top: 26px; }
+.avw { position: relative; margin-left: -3px; }
+.avw:first-child { margin-left: 0; }
+.avw > .avatar { width: 32px; height: 32px; border: 2px solid var(--bg); font-size: 10px; cursor: default; padding: 0; }
+.avcard { display: none; position: absolute; top: 100%; right: -60px; width: 300px; padding: 16px 18px; z-index: 35; margin-top: 8px; text-align: left; }
+.avcard::before { content: ""; position: absolute; top: -10px; left: 0; right: 0; height: 10px; }
+.avw:hover .avcard, .avw.open .avcard { display: block; }
+.avw > .avatar { cursor: pointer; }
+.avcard .avatar { width: 36px; height: 36px; flex: none; }
+.avev { display: flex; flex-direction: column; gap: 2px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
