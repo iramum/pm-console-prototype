@@ -20,7 +20,7 @@ window.MANAGERS = ["Anna K.", "Omar H.", "Lina R."];
 // chip: late | left | today | silent | new
 window.BASE_DEALS = [
   {
-    id: "a", client: "Client A", type: "Individual", source: "Website form", origin: { type: "Client", who: "Website form" },
+    id: "a", dealType: "Bridge", client: "Client A", type: "Individual", source: "Website form", origin: { type: "Client", who: "Website form" },
     property: { label: "Apartment, Downtown", kind: "Apartment, 2 bedrooms", area: "Downtown", building: "Burj Vista", size: "1,350 sq ft", market: 1650000, valuation: 1600000, valDate: "5 Nov 2024", valUntil: "5 Nov 2025", ltv: 69, mortgage: "None", deed: "Received, check pending" },
     spv: { name: "SPV Cedar 07", status: "Registered", reg: "FZ-204518", regOn: "12 Nov 2024", jurisdiction: "Free zone, Dubai", address: "Office 1204, Business Bay, Dubai", renewal: "11 Nov 2025", trn: "1004 2231 8890 003", vat: "Not registered", csp: "Harbour CS", bank: "Opening" },
     terms: { amount: 1100000, asked: 1250000, rate: 14, months: 12, neededBy: "15 Jan 2025", purpose: "Bridge until another property is sold", fee: "Monthly", serviceFee: 15000, serviceFeePaid: "Invoice paid 08 Nov" },
@@ -53,7 +53,7 @@ window.BASE_DEALS = [
     ],
   },
   {
-    id: "b", client: "Client B", type: "Company", source: "Broker", origin: { type: "Broker", who: "Prime Realty", pct: 1.5 },
+    id: "b", dealType: "HML", client: "Client B", type: "Company", source: "Broker", origin: { type: "Broker", who: "Prime Realty", pct: 1.5 },
     property: { label: "Townhouse, JVC", kind: "Townhouse, 3 bedrooms", area: "JVC", building: "Bloom Gardens", size: "2,100 sq ft", market: 1250000, valuation: 1200000, valDate: "1 Nov 2024", valUntil: "1 Nov 2025", ltv: 63, mortgage: "None", deed: "Received" },
     spv: { name: "SPV not yet", status: "Not set up yet", reg: "", regOn: "", jurisdiction: "Free zone, Dubai", address: "", renewal: "", trn: "Waiting on the CSP", vat: "Not registered", csp: "Harbour CS", bank: "Not yet" },
     terms: { amount: 750000, asked: 800000, rate: 16, months: 12, neededBy: "20 Jan 2025", purpose: "Working capital", fee: "Monthly" },
@@ -63,7 +63,7 @@ window.BASE_DEALS = [
     missing: ["Tax registration number"],
   },
   {
-    id: "e", client: "Client E", type: "Individual", source: "Referral", origin: { type: "Partner", who: "Gulf Wealth Partners", pct: 1 },
+    id: "e", dealType: "Bridge", client: "Client E", type: "Individual", source: "Referral", origin: { type: "Partner", who: "Gulf Wealth Partners", pct: 1 },
     property: { label: "Townhouse, Dubai Hills", kind: "Townhouse, 4 bedrooms", area: "Dubai Hills", building: "Maple 2", size: "2,900 sq ft", market: 2900000, valuation: 2800000, valDate: "3 Apr 2024", valUntil: "3 Apr 2025", ltv: 64, mortgage: "None", deed: "Held by the SPV" },
     spv: { name: "SPV Elm 02", status: "Registered", reg: "FZ-198764", regOn: "10 Apr 2024", jurisdiction: "Free zone, Dubai", address: "Office 602, JLT, Dubai", renewal: "9 Apr 2025", trn: "1004 1987 6410 003", vat: "Not registered", csp: "Harbour CS", bank: "Open" },
     terms: { amount: 1800000, rate: 14, months: 12, neededBy: "30 May 2024", purpose: "Buy before selling another home", fee: "Monthly" },
@@ -74,7 +74,7 @@ window.BASE_DEALS = [
     missing: [],
   },
   {
-    id: "f", client: "Client F", type: "Company", source: "Referral", origin: { type: "Partner", who: "Atlas Family Office", pct: 1 }, step01: 1,
+    id: "f", dealType: "HML", client: "Client F", type: "Company", source: "Referral", origin: { type: "Partner", who: "Atlas Family Office", pct: 1 }, step01: 1,
     property: { label: "Villa, Arabian Ranches", kind: "Villa, 4 bedrooms", area: "Arabian Ranches", building: "Saheel", size: "4,200 sq ft", market: 3200000, valuation: 3100000, valDate: "15 Nov 2024", valUntil: "15 Nov 2025", ltv: 68, mortgage: "None", deed: "Received" },
     spv: { name: "SPV not yet", status: "Not started", reg: "", regOn: "", jurisdiction: "", address: "", renewal: "", trn: "", vat: "", csp: "Harbour CS", bank: "" },
     terms: { amount: 2100000, asked: 2400000, rate: 18, months: 12, neededBy: "1 Feb 2025", purpose: "Working capital for a fit-out", fee: "Monthly" },
@@ -84,7 +84,7 @@ window.BASE_DEALS = [
     missing: [],
   },
   {
-    id: "c", client: "Client C", type: "Individual", source: "Broker", origin: { type: "Broker", who: "Skyline Brokers", pct: 1.5 },
+    id: "c", dealType: "Bridge", client: "Client C", type: "Individual", source: "Broker", origin: { type: "Broker", who: "Skyline Brokers", pct: 1.5 },
     property: { label: "Office, Business Bay", kind: "Office", area: "Business Bay", building: "Bay Square 4", size: "1,100 sq ft", market: 1400000, valuation: 1370000, valDate: "2 Oct 2024", valUntil: "2 Oct 2025", ltv: 62, mortgage: "None", deed: "Received" },
     spv: { name: "SPV Birch 05", status: "Registered", reg: "FZ-203977", regOn: "10 Oct 2024", jurisdiction: "Free zone, Dubai", address: "Office 803, JLT, Dubai", renewal: "9 Oct 2025", trn: "1004 2231 8711 120", vat: "Not registered", csp: "Harbour CS", bank: "Open" },
     terms: { amount: 850000, asked: 900000, rate: 15, months: 12, neededBy: "20 Dec 2024", purpose: "Buy before another sale closes", fee: "Monthly" },
@@ -94,7 +94,7 @@ window.BASE_DEALS = [
     missing: [],
   },
   {
-    id: "d", client: "Client D", type: "Individual", source: "Website form", origin: { type: "Client", who: "Instagram ad" },
+    id: "d", dealType: "Bridge", client: "Client D", type: "Individual", source: "Website form", origin: { type: "Client", who: "Instagram ad" },
     property: { label: "Apartment, Marina", kind: "Apartment, 1 bedroom", area: "Dubai Marina", building: "Marina Gate 2", size: "820 sq ft", market: 1150000, valuation: 1100000, valDate: "20 Sep 2024", valUntil: "20 Sep 2025", ltv: 66, mortgage: "None", deed: "Received" },
     spv: { name: "SPV Pine 03", status: "Registered", reg: "FZ-202113", regOn: "30 Sep 2024", jurisdiction: "Free zone, Dubai", address: "Office 410, Business Bay, Dubai", renewal: "29 Sep 2025", trn: "1004 2021 1301 220", vat: "Not registered", csp: "Harbour CS", bank: "Open" },
     terms: { amount: 720000, asked: 720000, rate: 14, months: 12, neededBy: "5 Dec 2024", purpose: "Bridge until another property is sold", fee: "Monthly" },
@@ -103,10 +103,45 @@ window.BASE_DEALS = [
     actions: [{ id: "d1", whose: "you", stage: "06 Buying", title: "Pay the registry fee", sub: "Invoice from the registry, 19 Nov", chip: ["left", "4 days left"], btn: "Pay", panel: "form" }],
     missing: [],
   },
+  {
+    id: "s", dealType: "Flipping", client: "Client S", type: "Company", source: "Website form",
+    property: { label: "Villa, Jumeirah Islands", kind: "Villa", area: "Jumeirah Islands", building: "Garden Hall", market: 3840000, valuation: 3720000, valDate: "1 Mar 2024", valUntil: "1 Mar 2025", ltv: 64, mortgage: "None", deed: "Held by the SPV" },
+    spv: { name: "SPV Oak 14", status: "Registered", reg: "FZ-199512", regOn: "5 Mar 2024", jurisdiction: "Free zone, Dubai", csp: "Harbour CS", bank: "Open" },
+    terms: { amount: 2400000, rate: 14, months: 12, fee: "Monthly" },
+    stage: 8, day: 0,
+    payments: { paid: 7, of: 12, fee: 28000, nextDue: "28 Nov 2024" },
+    forecast: { date: "Next fee 28 Nov 2024", cond: "", spare: "Exit planned", holds: "Nothing, fees on time" },
+    actions: [{ id: "s1", whose: "client", stage: "08 Payments", title: "Fee 8 of 12", sub: "Paid on time so far", chip: ["left", "6 days left"], btn: "Open", panel: null }],
+    missing: [],
+  },
+  {
+    id: "t", dealType: "Refinance", client: "Client T", type: "Individual", source: "Website form",
+    property: { label: "Apartment, Downtown", kind: "Apartment", area: "Downtown", building: "Act One", market: 2080000, valuation: 2015000, valDate: "1 Mar 2024", valUntil: "1 Mar 2025", ltv: 64, mortgage: "None", deed: "Held by the SPV" },
+    spv: { name: "SPV Teak 09", status: "Registered", reg: "FZ-200871", regOn: "5 Mar 2024", jurisdiction: "Free zone, Dubai", csp: "Harbour CS", bank: "Open" },
+    terms: { amount: 1300000, rate: 15, months: 12, fee: "Monthly" },
+    stage: 8, day: 0,
+    payments: { paid: 4, of: 12, fee: 16250, nextDue: "5 Dec 2024" },
+    forecast: { date: "Next fee 5 Dec 2024", cond: "", spare: "Exit planned", holds: "Nothing, fees on time" },
+    actions: [{ id: "t1", whose: "client", stage: "08 Payments", title: "Fee 5 of 12", sub: "Paid on time so far", chip: ["left", "13 days left"], btn: "Open", panel: null }],
+    missing: [],
+  },
+  {
+    id: "u", dealType: "HML", client: "Client U", type: "Individual", source: "Website form",
+    property: { label: "Townhouse, Arabian Ranches", kind: "Townhouse", area: "Arabian Ranches", building: "Reem", market: 1520000, valuation: 1472500, valDate: "1 Mar 2024", valUntil: "1 Mar 2025", ltv: 64, mortgage: "None", deed: "Held by the SPV" },
+    spv: { name: "SPV Palm 21", status: "Registered", reg: "FZ-197730", regOn: "5 Mar 2024", jurisdiction: "Free zone, Dubai", csp: "Harbour CS", bank: "Open" },
+    terms: { amount: 950000, rate: 16, months: 12, fee: "Monthly" },
+    stage: 8, day: 0,
+    payments: { paid: 10, of: 12, fee: 12700, nextDue: "12 Dec 2024" },
+    forecast: { date: "Next fee 12 Dec 2024", cond: "", spare: "Exit planned", holds: "Nothing, fees on time" },
+    actions: [{ id: "u1", whose: "client", stage: "08 Payments", title: "Fee 11 of 12", sub: "Paid on time so far", chip: ["left", "20 days left"], btn: "Open", panel: null }],
+    missing: [],
+  },
 ];
 
 window.LEADS = [
-  { client: "Client M", today: true, start: true, act: "start", btn: "Start the deal", amount: 1150000, og: "Broker", src: "Dune Property, 12 Nov", done: 4, docs: 5, ltv: 62, line: "Screening passed, first reply sent", prop: "Villa, The Springs", chip: ["new", "Ready today"] },
+  { client: "Client M", dealType: "Bridge", today: true, start: true, act: "start", btn: "Start the deal", amount: 1150000, og: "Broker", src: "Dune Property, 12 Nov", done: 4, docs: 5, ltv: 62, line: "Screening passed, first reply sent", prop: "Villa, The Springs", chip: ["new", "Ready today"] },
+  { client: "Client V", dealType: "Refinance", today: true, start: true, act: "start", btn: "Start the deal", amount: 880000, og: "Client", src: "Website form, 14 Nov", done: 4, docs: 5, ltv: 58, line: "Screening passed, first reply sent", prop: "Apartment, City Walk", chip: ["new", "Ready today"] },
+  { client: "Client W", dealType: "Flipping", today: true, start: true, act: "start", btn: "Start the deal", amount: 1600000, og: "Broker", src: "Prime Realty, 15 Nov", done: 4, docs: 5, ltv: 64, line: "Screening passed, first reply sent", prop: "Villa, Jumeirah Golf Estates", chip: ["new", "Ready since 2 days"] },
   { client: "Client R", today: true, act: "wa", btn: "Call", amount: 1300000, og: "Partner", src: "Gulf Wealth Partners, 1 hour ago", done: 0, docs: 0, ltv: null, line: "New application: reply first", prop: "Office, JLT", chip: ["new", "New"] },
   { client: "Client G", today: true, act: "wa", amount: 600000, og: "Client", src: "Website form, 2 hours ago", done: 1, docs: 0, ltv: null, line: "First contact due today, by WhatsApp", btn: "WhatsApp", prop: "Apartment, JVC", chip: ["today", "Due today"] },
   { client: "Client H", today: true, coral: true, act: "ceo", amount: 1770000, og: "Partner", src: "Atlas Family Office, 30 Oct", done: 3, docs: 5, ltv: 68, line: "Screening: LTV 68%, above the 65% standard", pill: "LTV 68%", btn: "Send to CEO and CFO", prop: "Villa, Dubai Hills", chip: ["today", "Reply due today"] },
