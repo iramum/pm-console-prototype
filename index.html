@@ -6,11 +6,39 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Workspace, prototype</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="airy.css">
+  <link rel="stylesheet" href="lofi.css">
 </head>
-<body>
+<body class="airy">
   <div id="app"></div>
+  <div class="skin" role="group" aria-label="Skin">
+    <button type="button" data-skin="v3">v3</button>
+    <button type="button" data-skin="airy" class="on">Airy cobalt</button>
+  </div>
+  <script>
+    (function () {
+      var saved = 'airy';
+      try { saved = localStorage.getItem('skin') || 'airy'; } catch (e) {}
+      function set(s) {
+        document.body.classList.toggle('airy', s === 'airy');
+        document.querySelectorAll('.skin button').forEach(function (b) { b.classList.toggle('on', b.dataset.skin === s); });
+        try { localStorage.setItem('skin', s); } catch (e) {}
+      }
+      set(saved);
+      if (new URLSearchParams(location.search).get('skin') === 'lofi') { document.body.classList.remove('airy'); document.body.classList.add('lofi'); }
+      var wv = 'glow';
+      var q = new URLSearchParams(location.search).get('wave'); if (q) wv = q;
+      function setW(w) {
+        document.body.setAttribute('data-wave', w);
+        document.querySelectorAll('.skin [data-wave]').forEach(function (b) { b.classList.toggle('on', b.dataset.wave === w); });
+        
+      }
+      setW(wv);
+      document.querySelector('.skin').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; if (b.dataset.wave) setW(b.dataset.wave); else set(b.dataset.skin); });
+    })();
+  </script>
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>

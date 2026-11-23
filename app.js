@@ -90,7 +90,7 @@
       ? `<span class="sitem off" aria-disabled="true" title="Not part of this prototype"><span class="stx">${t}${sub("Not in this case")}</span>${nb(n[t])}</span>`
       : `<a class="sitem ${on ? "on" : ""}" href="${href}"><span class="stx">${t}${sub(s2)}</span>${nb(n[t])}</a>`;
     const rec = S.recent.map(byId).filter((d) => d && !d.closed).slice(0, 3);
-    return `<aside class="side"><div class="brand">Workspace</div><nav class="snav" aria-label="Sections">
+    return `<aside class="side"><div class="brand">Workspace<span class="bsub">for deal managers</span></div><nav class="snav" aria-label="Sections">
       <a class="sitem ${active === "Home" ? "on" : ""}" href="#/home"><span class="stx">Home<span class="ssub">Your day and your board</span></span></a>
       ${item("Leads")}
       ${item("Deal portfolio", "#/deals", active === "Deal portfolio" && !cur, "All deals in work")}
@@ -289,6 +289,24 @@
     </div>`;
   }
   // one line per section: what is hot here today; every part filters the list right below
+  function todayBlock(all) {
+    const hot = all.filter(isToday).sort((a, b) => urgency(b) - urgency(a));
+    if (!hot.length) return `<div class="card pad tblock"><div class="thead2"><h2>Today</h2><span class="small bodyc">Nothing urgent. Every deal is on time.</span></div></div>`;
+    const WHO = { you: "Your move", client: "Waiting on the client", csp: "Waiting on the CSP", ceo: "With the CEO and the CFO" };
+    const LAB = { late: (c) => c[1], silent: () => "No reply 48 h", new: () => "New to check", today: () => "Due today" };
+    const hint = (d, a) => a.chip[0] === "late" && chipDays(a.chip) > 30 ? "Over 30 days late goes to the CEO and the CFO" : a.chip[0] === "silent" ? "Two days without a reply, try another channel" : a.chip[0] === "new" ? "Check before the deal moves on" : WHO[a.whose] || "";
+    const card = (d) => { const a = mainAct(d);
+      return `<div class="tcard ${a.chip[0] === "late" ? "warm" : ""}" data-a="open" data-id="${d.id}">
+        <div class="ttop"><span class="tchip t-${a.chip[0]}">${esc(LAB[a.chip[0]](a.chip))}</span><span class="small bodyc">${esc(a.stage)}</span></div>
+        <div class="ttitle"><span>${esc(dealName(d))}: ${esc(a.title)}</span><span class="aarr" title="Open the deal">→</span></div>
+        <div class="small bodyc">${esc(a.sub || "")}</div>
+        <div class="tact"><button class="btn fill" data-a="goAct" data-id="${d.id}" data-v="${a.panel || "form"}" data-x="${a.id}">${esc(a.btn)}&nbsp;&nbsp;<span class="arr">→</span></button></div>
+        <div class="thint">${esc(hint(d, a))}</div></div>`; };
+    const rest = hot.slice(3);
+    return `<div class="card pad tblock"><div class="thead2"><h2>Today</h2><span class="small bodyc">${hot.length} deal${hot.length === 1 ? "" : "s"} need${hot.length === 1 ? "s" : ""} you today${rest.length ? ", the 3 most urgent first" : ""}</span></div>
+      <div class="tcards">${hot.slice(0, 3).map(card).join("")}</div>
+      ${rest.length ? `<div class="talso"><span class="small bodyc">Also today:</span>${rest.map((d) => { const a = mainAct(d); return `<button class="tlink ${a.chip[0] === "late" ? "warm" : ""}" data-a="open" data-id="${d.id}">${esc(dealName(d))}: ${esc(a.title.charAt(0).toLowerCase() + a.title.slice(1))}, ${esc(LAB[a.chip[0]](a.chip).toLowerCase())}&nbsp;&nbsp;→</button>`; }).join("")}</div>` : ""}</div>`;
+  }
   function todayLine(parts) {
     const ps = parts.filter((x) => x.n);
     if (!ps.length) return '<div class="forecast"><span class="fclab">Today</span><span class="small bodyc">Nothing urgent in this section.</span></div>';
@@ -314,11 +332,12 @@
     const leads0 = `<div class="card crm"><div class="top"><span class="eyebrow blue">Leads</span><span class="pill d-today">${hot.length} of ${window.LEADS.length} leads need you today</span><span class="small muted">A lead becomes a deal when Screening is passed.</span><span style="flex:1"></span><button class="link" data-a="offtab" data-v="Leads">Open Leads&nbsp;&nbsp;→</button></div><div class="leads three">${hot.map(leadCard).join("")}</div></div>`;
     const leads = blocks[S.variant] === null || blocks[S.variant] === undefined ? leads0 : blocks[S.variant];
     return nav("Deal portfolio") + `<div class="page">
-      <div class="head"><div><h1>Deal portfolio</h1>${(() => { const c = (k) => all.filter((d) => mainAct(d).chip[0] === k).length; return todayLine([{ n: c("late"), t: "past deadline", a: "dash", v: "late", warm: true, on: S.dash === "late" }, { n: c("silent"), t: "silent client" + (c("silent") === 1 ? "" : "s"), a: "dash", v: "silent", on: S.dash === "silent" }, { n: c("new"), t: "new to check", a: "dash", v: "new", on: S.dash === "new" }, { n: c("today"), t: "due today", a: "dash", v: "today", on: S.dash === "today" }]); })()}</div><div class="grow"></div>
+      <div class="head"><div><h1>Deal portfolio</h1></div><div class="grow"></div>
         <div class="search"><input id="q" placeholder="Search by client, property or SPV" value="${esc(S.q)}" autocomplete="off">${S.q ? '<button class="link" data-a="clearQ" style="position:absolute;right:10px;top:9px;color:var(--muted)">×</button>' : ""}${S.searchOpen ? searchResults() : ""}</div>
         <div class="rel"><button class="btn" data-a="exportOpen">↓&nbsp;&nbsp;Export&nbsp;&nbsp;▾</button>${S.exportOpen ? exportMenu("list") : ""}</div></div>
       ${S.exportOpen || S.sortOpen || S.filtOpen || (S.searchOpen && S.q) ? '<div class="dim soft" data-a="closeAll"></div>' : ""}
       ${money4(all)}
+      ${todayBlock(all)}
       ${leadsBlock()}
       <div class="sechead" id="list"><h2>Deals in work</h2><span class="small bodyc">${all.length} deals</span>${S.dash ? `<button class="chip fchip" data-a="dash" data-v="${S.dash}">Showing: ${{ late: "late", silent: "no reply for 48 hours", new: "new to check", left: "fee coming", exit: "exit in 90 days" }[S.dash]}&nbsp;&nbsp;×</button>` : ""}</div>
       <div class="filters">${F.map(([k, t]) => `<button class="chip ${S.filter === k ? "on" : ""} ${k === "today" ? "warm" : ""}" data-a="filter" data-v="${k}">${t}&nbsp;&nbsp;${counts[k]}</button>`).join("")}<span class="sp"></span><div class="rel"><button class="btn ${fcount() ? "fill" : ""}" data-a="filtOpen">Filters${fcount() ? "&nbsp;&nbsp;" + fcount() : ""}&nbsp;&nbsp;▾</button>${S.filtOpen ? filtPanel(list) : ""}</div><div class="rel"><button class="btn" data-a="sortOpen">Sort: ${SORTS.find((x) => x[0] === S.sort)[1].toLowerCase()}&nbsp;&nbsp;▾</button>${S.sortOpen ? sortMenu() : ""}</div></div>${fchips()}
@@ -868,6 +887,7 @@
       case "crmOpen": S.crmOpen = !S.crmOpen; break;
       case "clearQ": S.q = ""; S.searchOpen = false; break;
       case "open": location.hash = "#/deal/" + id; return;
+      case "goAct": { const x = el.dataset.x; location.hash = "#/deal/" + id; setTimeout(() => { S.drawer = { kind: v, id: x }; S.channel = "WhatsApp"; render(); }, 40); return; }
       case "closed": say("Closed deal: opens read-only from the archive."); return;
       case "exportOpen": S.exportOpen = !S.exportOpen; S.pop = null; break;
       case "export": {

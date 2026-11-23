@@ -1,0 +1,15 @@
+/* Wireframe view of the final structure, for the case study: ?skin=lofi. No colour, no shadows, one grey type. */
+body.lofi { background: #FAFAFA !important; }
+body.lofi * { color: #6A6A6A !important; box-shadow: none !important; text-shadow: none !important; background-image: none !important; font-family: "Space Grotesk", Arial, sans-serif !important; letter-spacing: 0 !important; }
+body.lofi h1, body.lofi h2, body.lofi .mnum, body.lofi .cname, body.lofi .ttitle, body.lofi .at { color: #3A3A3A !important; font-weight: 500 !important; }
+body.lofi .card, body.lofi .mtile, body.lofi .htile, body.lofi .tcard, body.lofi .rfacts, body.lofi .act2, body.lofi .kcol, body.lofi .kcard, body.lofi .sticky, body.lofi .leadblock, body.lofi .tablecard, body.lofi .rholds, body.lofi .drawer, body.lofi .pop, body.lofi .arow, body.lofi .file, body.lofi .tile, body.lofi .miss, body.lofi .lrow2 {
+  background: #FFFFFF !important; border: 1px solid #C9C9C9 !important; border-radius: 4px !important; }
+body.lofi .side { background: #F0F0F0 !important; border-right: 1px solid #C9C9C9 !important; }
+body.lofi .sitem.on, body.lofi .sroomw.on { background: #E2E2E2 !important; }
+body.lofi .btn, body.lofi .chip, body.lofi .tlink, body.lofi .fcp { background: #FFFFFF !important; border: 1px solid #9A9A9A !important; border-radius: 4px !important; }
+body.lofi .btn.fill { background: #8A8A8A !important; border-color: #8A8A8A !important; }
+body.lofi .btn.fill, body.lofi .btn.fill * { color: #FFFFFF !important; }
+body.lofi .pill, body.lofi .tchip, body.lofi .nb, body.lofi .avatar { background: #EAEAEA !important; border: 1px solid #BDBDBD !important; }
+body.lofi .stage .sd, body.lofi .dot, body.lofi [class*="dot"] { background: #D0D0D0 !important; border-color: #9A9A9A !important; }
+body.lofi .page::before, body.lofi .page::after, body.lofi .skin { display: none !important; }
+body.lofi img { filter: grayscale(1) opacity(.5); }

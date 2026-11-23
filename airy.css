@@ -1,0 +1,195 @@
+/* Airy cobalt skin. Loads after styles.css, active only when <body class="airy">.
+   Directions from references 07, 11, 15, 27, 28: air, one thin hero number, one cobalt card per screen,
+   soft shadows instead of lines, rounded corners, delta chips. Content and logic are untouched. */
+
+body.airy {
+  --bg: #F4F5F9; --bt: #E9EDFF; --line: #ECEEF3; --body: #5E6372; --muted: #8E93A3; --ink: #14161F;
+  --mist: #F1F3F8; --sh: 0 8px 28px rgba(20, 22, 31, 0.06); --sh2: 0 14px 40px rgba(20, 22, 31, 0.10);
+  --r: 20px; --r2: 14px; --r3: 10px;
+  background: var(--bg); font-size: 14px;
+}
+
+/* type: light display numbers, quiet labels */
+body.airy h1 { font-family: var(--text); font-weight: 300; font-size: 44px; letter-spacing: -0.02em; }
+body.airy .eyebrow { font-family: var(--text); font-weight: 500; font-size: 13px; letter-spacing: 0; text-transform: none; color: var(--body); }
+body.airy .eyebrow.blue { color: var(--ink); font-size: 16px; }
+body.airy .mlab { font-family: var(--text); font-weight: 400; font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--body); }
+body.airy .mnum, body.airy .plnum, body.airy .anum, body.airy .vnum, body.airy .topbar .big {
+  font-family: var(--text); font-weight: 300; letter-spacing: -0.03em; font-variant-numeric: tabular-nums;
+}
+body.airy .mnum { font-size: 40px; line-height: 1.05; }
+body.airy .htile .mnum { font-size: 36px; }
+body.airy .plnum { font-size: 40px; }
+body.airy .anum { font-size: 28px; }
+body.airy .vnum { font-size: 22px; }
+body.airy .sechead h2 { font-family: var(--text); font-weight: 400; font-size: 24px; letter-spacing: -0.01em; }
+body.airy .deals th { font-family: var(--text); font-weight: 500; font-size: 12px; letter-spacing: 0; text-transform: none; color: var(--muted); }
+
+/* surfaces: no borders, soft shadow, big radius */
+body.airy .card, body.airy .mtile, body.airy .htile, body.airy .rholds, body.airy .act2, body.airy .lstep {
+  border: 0; border-radius: var(--r); box-shadow: var(--sh); background: var(--white);
+}
+body.airy .card.pad, body.airy .pad { padding: 24px 26px; }
+body.airy .mtile, body.airy .htile { padding: 22px 24px; gap: 8px; }
+body.airy .htile.off { background: transparent; box-shadow: none; border: 1.5px dashed #D6D9E2; }
+body.airy .mtile.lead { box-shadow: none; border: 1.5px dashed #D6D9E2; background: transparent; }
+body.airy .mwhy { border-top: 0; padding-top: 6px; color: var(--muted); }
+body.airy .hstrip, body.airy .mstrip { gap: 20px; margin-bottom: 24px; }
+body.airy .hcols2, body.airy .dash { gap: 20px; }
+
+/* the one cobalt card: the blue tile keeps the colour and gets a glow; the navy tile goes light */
+body.airy .mtile.blue { background: var(--blue); color: var(--white); box-shadow: 0 18px 40px rgba(0, 44, 210, 0.28); }
+body.airy .mtile.blue .mlab, body.airy .mtile.blue .mwhy { color: rgba(255, 255, 255, 0.78); }
+body.airy .mtile.dark { background: var(--white); color: var(--ink); box-shadow: var(--sh); }
+body.airy .mtile.dark .mlab, body.airy .mtile.dark .msub, body.airy .mtile.dark .mwhy { color: var(--body); }
+body.airy .mtile.on { box-shadow: 0 0 0 2px var(--blue), var(--sh); }
+body.airy .mtile.warm { background: var(--white); box-shadow: inset 0 0 0 1.5px rgba(240, 106, 133, 0.55), var(--sh); }
+body.airy .htile .aarr, body.airy .aarr, body.airy .arr {
+  display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 999px;
+  background: var(--mist); color: var(--ink); font-weight: 400;
+}
+body.airy .htile { position: relative; }
+body.airy .htile .aarr { position: absolute; top: 18px; right: 18px; }
+body.airy .btn .arr { width: auto; height: auto; background: none; color: inherit; }
+
+/* rows inside cards: soft tiles instead of outlined boxes */
+body.airy .arow { border: 0; border-radius: var(--r2); background: var(--mist); padding: 12px 14px; }
+body.airy .arow.warm { background: var(--ct); }
+body.airy .arow.on { box-shadow: 0 0 0 2px var(--blue); }
+body.airy .drowd, body.airy .lrow { border-left: 0; border-top: 0; background: var(--mist); border-radius: var(--r2); padding: 12px 14px; }
+
+/* side menu: white, quiet, ice highlight */
+body.airy .side { background: var(--white); border-right: 0; box-shadow: 1px 0 0 var(--line); }
+body.airy .side .brand { font-size: 18px; }
+body.airy .sitem, body.airy .sroom { border-left: 0; border-radius: 12px; }
+body.airy .sitem.on, body.airy .sroomw.on { background: var(--bt); color: var(--blue); border-left: 0; }
+body.airy .sroomw { border-left: 0; border-radius: 12px; }
+body.airy .srec { border-left-color: var(--line); }
+body.airy .side .me { border-top-color: var(--line); }
+body.airy .nb { border-radius: 999px; }
+
+/* controls */
+body.airy .btn { height: 38px; padding: 0 16px; border-radius: 12px; border: 0; background: var(--mist); color: var(--ink); }
+body.airy .btn.fill { background: var(--blue); color: var(--white); box-shadow: 0 6px 16px rgba(0, 44, 210, 0.22); }
+body.airy .btn.ghost { background: var(--white); box-shadow: inset 0 0 0 1px var(--line); }
+body.airy .btn.big { height: 44px; }
+body.airy .chip { height: 36px; border: 0; border-radius: 12px; background: var(--white); box-shadow: var(--sh); }
+body.airy .chip.on { background: var(--ink); color: var(--white); }
+body.airy .chip.warm:not(.on) { background: var(--ct); box-shadow: none; }
+body.airy .pill { height: 26px; border-radius: 8px; padding: 0 10px; }
+body.airy .p-client, body.airy .d-late, body.airy .d-silent, body.airy .d-today { border-color: transparent; }
+body.airy .d-left { border-color: transparent; background: var(--bt); color: var(--blue); }
+body.airy .p-csp, body.airy .p-valuer, body.airy .p-closed { border-color: transparent; background: var(--mist); }
+body.airy .atag { border: 0; background: var(--bt); border-radius: 8px; font-family: var(--text); letter-spacing: 0; text-transform: none; font-size: 12px; }
+body.airy .search input, body.airy .field, body.airy textarea { border: 0; border-radius: 12px; background: var(--white); box-shadow: inset 0 0 0 1px var(--line); }
+body.airy .link { color: var(--blue); }
+
+/* table: rows breathe, hover is a soft band */
+body.airy .tablecard { padding: 4px 24px 8px; }
+body.airy .deals td { padding: 16px 0; border-bottom-color: var(--line); }
+body.airy .deals tbody tr:hover td { background: var(--mist); }
+body.airy .cname { font-size: 15px; }
+body.airy tr.leadrow { background: rgba(0, 44, 210, 0.04); }
+
+/* home board and notes */
+body.airy .kcol { border-radius: 16px; padding: 12px; }
+body.airy .kcol.k-done { background: var(--blue); }
+body.airy .kcard { border: 0; border-radius: 12px; box-shadow: 0 2px 10px rgba(20, 22, 31, 0.05); }
+body.airy .sticky { border: 0; border-radius: 16px; }
+body.airy .sticky.c-grey { background: var(--mist); }
+body.airy .sticky.c-blue { background: var(--bt); }
+body.airy .leadblock { background: var(--bt); border: 0; border-radius: var(--r); box-shadow: none; }
+
+/* deal room */
+body.airy .rfacts { border: 0; border-radius: var(--r); box-shadow: var(--sh); }
+body.airy .rcell { border-left-color: var(--line); padding: 18px 22px; }
+body.airy .rcell .rv { font-size: 16px; }
+body.airy .rholds.hot, body.airy .act2.hot { background: var(--white); box-shadow: inset 0 0 0 1.5px rgba(240, 106, 133, 0.55), var(--sh); }
+body.airy .act2.done { background: var(--mist); box-shadow: none; }
+body.airy .a2t { font-size: 17px; }
+body.airy .paylate { background: var(--white); box-shadow: inset 0 0 0 1.5px rgba(240, 106, 133, 0.55), var(--sh); }
+body.airy .lstep.on { box-shadow: inset 0 0 0 2px var(--coral); }
+body.airy .ft { border-radius: 8px; }
+body.airy .tile { border-radius: 16px; background: var(--mist); }
+body.airy .tile.hot { background: var(--ct); }
+body.airy .miss { border: 0; border-radius: 14px; }
+body.airy .file { border: 0; border-radius: 14px; background: var(--mist); }
+body.airy .topbar > div { border-radius: 0; }
+body.airy .topbar .lab { background: var(--bt); }
+body.airy .stage .sd { border-color: #D6D9E2; }
+
+/* overlays */
+body.airy .pop, body.airy .menu, body.airy .results { border: 0; border-radius: 18px; box-shadow: var(--sh2); }
+body.airy .drawer { border-left: 0; border-radius: 24px 0 0 24px; box-shadow: var(--sh2); }
+body.airy .dialog { border: 0; border-radius: 24px; box-shadow: var(--sh2); }
+body.airy .dim { background: rgba(20, 22, 31, 0.18); backdrop-filter: blur(2px); }
+body.airy .toast { border-radius: 14px; }
+
+/* skin switch, only in this preview */
+.skin { position: fixed; right: 16px; bottom: 16px; z-index: 70; display: flex; gap: 4px; padding: 4px; border-radius: 12px;
+  background: #FFFFFF; box-shadow: 0 8px 28px rgba(20, 22, 31, 0.12); font-family: 'Space Grotesk', sans-serif; font-size: 12px; }
+.skin button { border: 0; background: transparent; padding: 7px 12px; border-radius: 9px; color: #14161F; }
+.skin button.on { background: #14161F; color: #FFFFFF; }
+
+/* v9 Today block on the portfolio, in the airy skin */
+body.airy .tcard { border: 0; border-radius: var(--r2); background: var(--mist); padding: 18px; }
+body.airy .tcard:hover { box-shadow: 0 0 0 2px var(--blue); }
+body.airy .tcard.warm { background: var(--white); box-shadow: inset 0 0 0 1.5px rgba(240, 106, 133, 0.55), var(--sh); }
+body.airy .tchip { font-family: var(--text); font-weight: 500; font-size: 12px; letter-spacing: 0; text-transform: none; border-radius: 8px; padding: 4px 10px; background: var(--white); }
+body.airy .tchip.t-late { background: var(--ct); color: var(--ink); }
+body.airy .tchip.t-new { background: var(--bt); }
+body.airy .ttitle { font-family: var(--text); font-weight: 500; font-size: 17px; letter-spacing: -0.01em; }
+body.airy .thint { border-top: 0; padding-top: 0; color: var(--muted); }
+body.airy .thead2 h2 { font-family: var(--text); font-weight: 400; font-size: 24px; letter-spacing: -0.01em; }
+body.airy .talso { border-top: 0; padding-top: 4px; }
+body.airy .tlink { border: 0; border-radius: 12px; background: var(--mist); }
+body.airy .tlink.warm { background: var(--ct); }
+
+/* v9 fixes found in the four-screen check */
+body.airy .thbtn { font-family: var(--text); font-weight: 500; font-size: 12px; letter-spacing: 0; text-transform: none; color: var(--blue); }
+body.airy .lrow2 { border: 0; border-radius: var(--r2); background: var(--white); padding: 12px 16px; }
+body.airy .pill.dtype { border: 0; background: var(--mist); }
+body.airy .avs .avatar { border-radius: 999px; border: 2px solid var(--white); background: var(--bt); }
+body.airy .avs .avatar.add { border: 1.5px dashed var(--blue); background: var(--white); }
+body.airy .pill { letter-spacing: 0; text-transform: none; }
+
+/* v9 round 3: the brand wave on the background, the wave itself carries the gradient */
+body.airy .page { position: relative; isolation: isolate; }
+body.airy .page::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  top: -24px; right: -32px; width: 760px; height: 600px;
+  background: url(img/wave-02-gradient.svg) no-repeat right top / 760px auto;
+}
+
+/* v9 round 4: the name gets its audience; inactive tiles are solid grey, the wave goes under them */
+.brand .bsub { display: block; margin-top: 2px; font-family: var(--text); font-weight: 400; font-size: 12px; letter-spacing: 0; color: var(--muted); }
+
+/* v9 round 5: wave options to compare, switch bottom right (body[data-wave]) */
+body.airy[data-wave="mesh"] .page::before { background: url(img/wave-02-gradient.svg) no-repeat right top / 760px auto; }
+body.airy[data-wave="dome"] .page::before { top: -40px; right: -40px; left: 120px; width: auto; height: 420px; background: url(img/wave-13-gradient.svg) no-repeat right top / 100% auto; opacity: 0.7; }
+body.airy[data-wave="band"] .page::before { top: 10px; right: -40px; left: 200px; width: auto; height: 300px; background: url(img/wave-12-gradient.svg) no-repeat right top / 100% auto; opacity: 0.6; }
+body.airy[data-wave="flow"] .page::before { top: -60px; right: -40px; left: 80px; width: auto; height: 560px; background: url(img/wave-flow.svg) no-repeat right top / 100% 100%; opacity: 0.8;
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 95%); mask-image: linear-gradient(180deg, #000 30%, transparent 95%); }
+body.airy[data-wave="glow"] .page::before { top: -160px; right: -160px; left: 160px; width: auto; height: 640px; background:
+  radial-gradient(40% 45% at 78% 30%, rgba(0, 44, 210, 0.16), transparent 70%),
+  radial-gradient(35% 40% at 55% 10%, rgba(120, 145, 255, 0.20), transparent 70%),
+  radial-gradient(30% 35% at 95% 60%, rgba(240, 106, 133, 0.08), transparent 70%); filter: blur(30px); }
+body.airy[data-wave="none"] .page::before { display: none; }
+.skin .sep { width: 1px; background: #E3E5EC; margin: 4px 4px; }
+.skin .lab2 { align-self: center; color: #8E93A3; padding: 0 4px 0 6px; }
+
+/* v9 round 6: glow + a brand wave on top of it */
+body.airy[data-wave^="g-"] .page::before { top: -200px; right: -200px; left: 40px; width: auto; height: 760px; background:
+  radial-gradient(45% 50% at 80% 28%, rgba(0, 44, 210, 0.18), transparent 70%),
+  radial-gradient(40% 45% at 52% 8%, rgba(120, 145, 255, 0.24), transparent 70%),
+  radial-gradient(30% 35% at 96% 62%, rgba(240, 106, 133, 0.08), transparent 70%); filter: blur(34px); opacity: 1; -webkit-mask-image: none; mask-image: none; }
+body.airy[data-wave^="g-"] .page::after { content: ""; position: absolute; z-index: -1; pointer-events: none; }
+body.airy[data-wave="g-mesh"] .page::after { top: -24px; right: -32px; width: 760px; height: 600px; background: url(img/wave-02-gradient.svg) no-repeat right top / 760px auto; }
+body.airy[data-wave="g-dome"] .page::after { top: -70px; right: -90px; width: 620px; height: 260px; background: url(img/wave-13-gradient.svg) no-repeat center / 100% auto; transform: rotate(-14deg); transform-origin: 100% 0; opacity: 0.9; }
+body.airy[data-wave="g-mesh-s"] .page::after { top: -24px; right: -32px; width: 460px; height: 420px; background: url(img/wave-02-gradient.svg) no-repeat right top / 460px auto;
+  -webkit-mask-image: radial-gradient(100% 100% at 100% 0, #000 30%, transparent 85%); mask-image: radial-gradient(100% 100% at 100% 0, #000 30%, transparent 85%); }
+
+/* v9 round 7: the glow is the background. Fixed to the viewport corner, cards scroll over it */
+body.airy[data-wave="glow"] .page::before, body.airy[data-wave^="g-"] .page::before {
+  position: fixed; top: -180px; right: -140px; left: auto; width: 1320px; height: 820px;
+}
